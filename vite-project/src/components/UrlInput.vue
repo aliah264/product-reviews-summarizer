@@ -1,7 +1,14 @@
 <template>
-    <div class="flex flex-col items-center gap-4">
-      <input v-model="url" class="input input-bordered w-full max-w-md" placeholder="Enter product review URL" />
-      <button class="btn btn-primary" @click="handleSubmit">Summarize</button>
+    <div class="flex flex-col items-center gap-4 w-full max-w-lg">
+      <input
+        v-model="url"
+        class="input input-bordered w-full"
+        placeholder="Enter product review URL"
+        @keyup.enter="handleSubmit"
+      />
+      <button class="btn btn-primary w-full" @click="handleSubmit" :disabled="loading">
+        {{ loading ? 'Summarizing...' : 'Summarize' }}
+      </button>
     </div>
   </template>
   
@@ -10,14 +17,23 @@
   import { fetchSummary } from '../services/api';
   
   const url = ref('');
-  const emit = defineEmits(['summary-generated']);
+  const loading = ref(false);
+  const emit = defineEmits(['summaryGenerated']);
   
   const handleSubmit = async () => {
+    if (!url.value) {
+      alert('Please enter a valid URL.');
+      return;
+    }
+  
+    loading.value = true;
     try {
       const summary = await fetchSummary(url.value);
-      emit('summary-generated', { summary, url: url.value });
+      emit('summaryGenerated', { summary, url: url.value });
     } catch (error) {
-      alert('Error fetching summary.');
+      alert('Error fetching summary. Please try again.');
+    } finally {
+      loading.value = false;
     }
   };
   </script>
