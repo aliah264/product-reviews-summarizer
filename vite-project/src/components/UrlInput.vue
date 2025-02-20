@@ -18,8 +18,8 @@
   
   const url = ref('');
   const loading = ref(false);
-  const emit = defineEmits(['summaryGenerated']);
-  
+  const emit = defineEmits<{ 'summary-generated': (payload: { summary: string; url: string }) => void }>();
+
   const handleSubmit = async () => {
     if (!url.value) {
       alert('Please enter a valid URL.');
@@ -29,8 +29,8 @@
     loading.value = true;
     try {
       const summary = await fetchSummary(url.value);
-      emit('summaryGenerated', { summary, url: url.value });
-    } catch (error) {
+      emit('summary-generated', { summary, url: url.value });
+        } catch (error) {
       alert('Error fetching summary. Please try again.');
     } finally {
       loading.value = false;

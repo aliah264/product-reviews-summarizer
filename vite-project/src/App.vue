@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center gap-6 bg-base-100 p-4">
     <h1 class="text-3xl font-bold">🚀 Product Reviews Summarizer</h1>
-    <UrlInput @summaryGenerated="handleSummary" />
+    <UrlInput @summary-generated="handleSummary" />
     <SummaryDisplay v-if="summary" :summary="summary" :url="url" />
   </div>
 </template>
@@ -14,8 +14,12 @@ import SummaryDisplay from './components/SummaryDisplay.vue';
 const summary = ref('');
 const url = ref('');
 
-const handleSummary = ({ summary: s, url: u }: { summary: string; url: string }) => {
-  summary.value = s;
-  url.value = u;
+/**
+ * Handles the emitted event from UrlInput.vue
+ * @param payload - Object containing the summary and URL
+ */
+const handleSummary = (payload: { summary: string; url: string }) => {
+  summary.value = payload.summary;
+  url.value = payload.url;
 };
 </script>
