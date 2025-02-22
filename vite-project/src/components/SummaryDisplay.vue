@@ -34,13 +34,18 @@
     font-size: 1rem;
     line-height: 1.7;
   }
-  .prose h2 {
-    margin-top: 1.5rem;
-    color: #2d3748;
+  
+  .dark .prose {
+    color: #e2e8f0; /* Light text in dark mode */
   }
-  .prose ul {
-    list-style-type: disc;
-    margin-left: 1.5rem;
+  
+  .dark .prose h2 {
+    color: #fbbf24; /* Yellow headings in dark mode */
+  }
+  
+  .dark .btn {
+    background-color: #4a5568; /* Darker buttons */
+    color: #f9fafb;
   }
   </style>
   
