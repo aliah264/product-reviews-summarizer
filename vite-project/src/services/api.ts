@@ -8,6 +8,7 @@ const RAPID_API_KEY = '22d31a77bdmsh252ba3237e42729p145fb9jsnfa398962b84a';
  * @param url - URL containing product reviews to summarize.
  * @returns Summary string from the API.
  */
+
 export const fetchSummary = async (url: string, reviewsText: string): Promise<string> => {
     try {
       const response = await axios.post(
@@ -17,16 +18,25 @@ export const fetchSummary = async (url: string, reviewsText: string): Promise<st
             {
               role: 'user',
               content: `
-  Summarize the following product reviews from this URL: ${url}
+  Please provide a neatly structured summary of the product reviews from this URL: ${url}.
   
-  Please provide:
-  - A brief overall sentiment analysis (positive, neutral, or negative).
-  - Key pros and cons in bullet points.
-  - A final recommendation in a single sentence.
+  The format should be:
+  ## 📝 Summary  
+  A concise paragraph explaining overall sentiment.
   
-  Make the summary concise, easy to read, and friendly in tone.
-  Summarize in detail (150-200 words) with sections for Pros, Cons, and Final Thoughts.
-
+  ## ✅ Pros  
+  - Use bullet points  
+  - Keep sentences short and clear  
+  
+  ## ❌ Cons  
+  - Use bullet points  
+  - Mention notable downsides  
+  
+  ## 🔔 Final Recommendation  
+  One friendly sentence.
+  
+  Format everything in markdown for better display. Keep the summary easy to read and professional.
+              
   Reviews: ${reviewsText}
               `,
             },
@@ -41,11 +51,9 @@ export const fetchSummary = async (url: string, reviewsText: string): Promise<st
         }
       );
   
-      console.log('API Response:', response.data);
       return response.data.choices[0].message.content.trim();
     } catch (error: any) {
       console.error('API Error:', error.response?.data || error.message);
       throw new Error('Failed to fetch summary. Please check console for details.');
     }
-  };
-  
+  };  
