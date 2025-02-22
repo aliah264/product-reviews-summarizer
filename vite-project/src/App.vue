@@ -21,7 +21,7 @@ const url = ref('');
 
 const handleSummary = (payload: { summary: string; url: string }) => {
   summary.value = payload.summary;
-  url.value = payload.url;
+  url.value = u;
 };
 
 const toggleTheme = () => {
