@@ -21,18 +21,18 @@ export const fetchSummary = async (url: string, reviewsText: string): Promise<st
   Please provide a neatly structured summary of the product reviews from this URL: ${url}.
   
   The format should be:
-  ## 📝 Summary  
+  ### 📝 Summary  
   A concise paragraph explaining overall sentiment.
   
-  ## ✅ Pros  
+  ### ✅ Pros  
   - Use bullet points  
   - Keep sentences short and clear  
   
-  ## ❌ Cons  
+  ### ❌ Cons  
   - Use bullet points  
   - Mention notable downsides  
   
-  ## 🔔 Final Recommendation  
+  ### 🔔 Final Recommendation  
   One friendly sentence.
   
   Format everything in markdown for better display. Keep the summary easy to read and professional.
