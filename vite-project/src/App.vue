@@ -14,7 +14,7 @@
     </main>
   </div>
 </template>
-
+<Modal v-if="showModal" :title="'Summary Generated!'" :message="highlightedSummary" @close="showModal = false" />
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
 import UrlInput from './components/UrlInput.vue';
