@@ -81,3 +81,35 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Custom styles */
+body {
+  background-color: var(--tw-bg-base-100);
+  color: var(--tw-text-base-content);
+}
+
+h1, h2 {
+  color: var(--tw-text-gray-800);
+}
+h1.dark, h2.dark {
+  color: var(--tw-text-gray-100);
+}
+
+a {
+  text-decoration: underline;
+  color: var(--tw-text-blue-600);
+}
+a:hover {
+  color: var(--tw-text-blue-400);
+}
+
+.btn {
+  transition: all 200ms ease-in-out;
+}
+
+.card {
+  transition: transform 200ms ease-in-out;
+}
+.card:hover {
+  transform: scale(1.05);
+}
