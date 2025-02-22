@@ -1,22 +1,22 @@
 <template>
-  <div class="min-h-screen bg-background dark:bg-darkBackground text-textPrimary dark:text-textSecondary">
+  <div class="min-h-screen bg-background dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans">
     <!-- Header -->
-    <header class="w-full p-4 bg-primary text-white flex justify-between items-center shadow-md">
-      <h1 class="text-2xl font-semibold">🚀 Product Reviews Summarizer</h1>
-      <button class="btn btn-outline btn-sm" @click="toggleTheme">🌙 Toggle Theme</button>
+    <header class="w-full p-5 bg-white dark:bg-gray-800 shadow-soft rounded-b-smooth backdrop-blur-lg flex justify-between items-center">
+      <h1 class="text-2xl font-bold">🔎 Review Summarizer</h1>
+      <button class="btn btn-sm btn-primary rounded-full" @click="toggleTheme">🌓 Toggle Theme</button>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex flex-col items-center p-6 space-y-10 max-w-5xl mx-auto">
+    <!-- Main -->
+    <main class="max-w-5xl mx-auto p-6 flex flex-col gap-10">
       <UrlInput @summary-generated="handleSummary" />
-      <FilterWords v-if="summary" :summary="summary" :url="url" />
-      <SummaryDisplay v-if="summary" :summary="highlightedSummary" :url="url" />
+      <FilterWords v-if="summary" :summary="summary" @update-summary="updateHighlightedSummary" />
+      <SummaryDisplay v-if="highlightedSummary" :summary="highlightedSummary" :url="url" />
     </main>
   </div>
 </template>
-<Modal v-if="showModal" :title="'Summary Generated!'" :message="highlightedSummary" @close="showModal = false" />
+
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import UrlInput from './components/UrlInput.vue';
 import SummaryDisplay from './components/SummaryDisplay.vue';
 import FilterWords from './components/FilterWords.vue';
@@ -25,11 +25,14 @@ const summary = ref('');
 const url = ref('');
 const highlightedSummary = ref('');
 
-const handleSummary = (event: { summary: string; url: string }) => {
-  const { summary: s, url: u } = event;
+const handleSummary = ({ summary: s, url: u }) => {
   summary.value = s;
   url.value = u;
   highlightedSummary.value = s;
+};
+
+const updateHighlightedSummary = (highlighted) => {
+  highlightedSummary.value = highlighted;
 };
 
 const toggleTheme = () => {
@@ -38,7 +41,8 @@ const toggleTheme = () => {
 };
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem('theme') ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  const theme = localStorage.getItem('theme') ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  if (theme === 'dark') document.documentElement.classList.add('dark');
 });
 </script>
+
