@@ -13,13 +13,16 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, defineEmits } from 'vue';
+  import { ref } from 'vue';
   import { fetchSummary } from '../services/api';
   
   const url = ref('');
   const loading = ref(false);
   const emit = defineEmits<{ 'summary-generated': (payload: { summary: string; url: string }) => void }>();
-
+  
+  /**
+   * Handles the form submission to fetch the summary.
+   */
   const handleSubmit = async () => {
     if (!url.value) {
       alert('Please enter a valid URL.');
@@ -30,11 +33,10 @@
     try {
       const summary = await fetchSummary(url.value);
       emit('summary-generated', { summary, url: url.value });
-        } catch (error) {
+    } catch (error) {
       alert('Error fetching summary. Please try again.');
     } finally {
       loading.value = false;
     }
   };
-  </script>
-  
+  </script>  

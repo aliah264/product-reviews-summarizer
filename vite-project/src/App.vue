@@ -15,8 +15,8 @@ const summary = ref('');
 const url = ref('');
 
 /**
- * Handles the emitted event from UrlInput.vue
- * @param payload - Object containing the summary and URL
+ * Handles the emitted event from UrlInput.vue.
+ * @param payload - Contains the summary and URL.
  */
 const handleSummary = (payload: { summary: string; url: string }) => {
   summary.value = payload.summary;
